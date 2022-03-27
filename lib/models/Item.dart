@@ -13,7 +13,7 @@ class Item {
     return Item(
       image_url: json['image_url'],
       answer: json['answer'],
-      choices: json['choices'],
+      choices: List<String>.from(json['choices']),
     );
   }
 }
