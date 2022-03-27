@@ -5,6 +5,7 @@ import 'package:final_620710663/models/api_result.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'data.dart';
+import 'homes.dart';
 
 class ListPage extends StatefulWidget {
   const ListPage({Key? key}) : super(key: key);
@@ -70,7 +71,13 @@ class _ListPageState extends State<ListPage> {
                             onPressed: () {
                               setState(() {
                                 _index++;
-                                Navigator.of(context).pop();
+                                if(_index == 1){
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(totalIncorrect: _totalIncorrect)));
+                                }
+                                else {
+                                  Navigator.of(context).pop();
+                                }
+
                               });
                             },
                             child: Text('Ok')
