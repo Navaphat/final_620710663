@@ -20,8 +20,12 @@ class _HomePageState extends State<HomePage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           DefaultTextStyle(
+            style: TextStyle(fontSize: 100.0),
+            child: Text('จบเกม'),
+          ),
+          DefaultTextStyle(
               style: TextStyle(fontSize: 50.0),
-              child: Text(widget.totalIncorrect.toString()),
+              child: Text("ทายผิด ${widget.totalIncorrect} ครั้ง"),
           )
         ],
       ),

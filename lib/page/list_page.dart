@@ -28,15 +28,23 @@ class _ListPageState extends State<ListPage> {
   Widget build(BuildContext context) {
     var itemData = Data.list[_index];
     return Scaffold(
-      body: Stack(
-        children: [
-          Column(
-            children: [
-              Image.network(Data.list[_index].image_url),
-              for(int i = 0; i < itemData.choices.length; i++) _viewChoices(itemData, i),
-            ],
-          ),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Container(
+          alignment: Alignment.center,
+          child:
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Image.network(Data.list[_index].image_url),
+                Column(
+                  children: [
+                    for(int i = 0; i < itemData.choices.length; i++) _viewChoices(itemData, i),
+                  ],
+                ),
+              ],
+            ),
+        ),
       ),
     );
   }
@@ -56,61 +64,65 @@ class _ListPageState extends State<ListPage> {
 
   Widget _viewChoices(Item itemData, int index) {
     return Card(
-      child: Expanded(
-        child: ElevatedButton(
-          onPressed: () {
-            if(itemData.choices[index] == itemData.answer) {
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: Text('Message'),
-                      content: Text('Correct'),
-                      actions: [
-                        ElevatedButton(
-                            onPressed: () {
-                              setState(() {
-                                _index++;
-                                if(_index == 1){
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(totalIncorrect: _totalIncorrect)));
-                                }
-                                else {
-                                  Navigator.of(context).pop();
-                                }
+      child: Container(
+        child: Expanded(
+          child: ElevatedButton(
+            onPressed: () {
+              if(itemData.choices[index] == itemData.answer) {
+                showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text('Message'),
+                        content: Text('Correct'),
+                        actions: [
+                          ElevatedButton(
+                              onPressed: () {
+                                setState(() {
+                                  if(_index != Data.list.length) _index++;
+                                  if(_index == Data.list.length){
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(totalIncorrect: _totalIncorrect)));
+                                  }
+                                  else {
+                                    Navigator.of(context).pop();
+                                  }
 
-                              });
-                            },
-                            child: Text('Ok')
-                        )
-                      ],
-                    );
-                  }
-              );
-            }
-            else {
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: Text('Message'),
-                      content: Text('Incorrect'),
-                      actions: [
-                        ElevatedButton(
-                            onPressed: () {
-                              setState(() {
-                                _totalIncorrect++;
-                                Navigator.of(context).pop();
-                              });
-                            },
-                            child: Text('Ok')
-                        )
-                      ],
-                    );
-                  }
-              );
-            }
-          },
-          child: Text(itemData.choices[index]),
+                                });
+                              },
+                              child: Text('Ok')
+                          )
+                        ],
+                      );
+                    }
+                );
+              }
+              else {
+                showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text('Message'),
+                        content: Text('Incorrect'),
+                        actions: [
+                          ElevatedButton(
+                              onPressed: () {
+                                setState(() {
+                                  _totalIncorrect++;
+                                  Navigator.of(context).pop();
+                                });
+                              },
+                              child: Text('Ok')
+                          )
+                        ],
+                      );
+                    }
+                );
+              }
+            },
+            child: Text(itemData.choices[index]),
+          ),
         ),
       ),
     );
