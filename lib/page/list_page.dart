@@ -41,7 +41,6 @@ class _ListPageState extends State<ListPage> {
                     aspectRatio: 1.7,
                   child: Image.network(itemData.image_url),
                 ),
-
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
@@ -85,14 +84,18 @@ class _ListPageState extends State<ListPage> {
                         actions: [
                           ElevatedButton(
                               onPressed: () {
+                                // if(_index < Data.list.length) {
+                                //   setState(() {
+                                //     _index++;
+                                //   });
+                                // }
+
                                 setState(() {
-                                  if(_index >= 0 && _index <= 4){
-                                    _index++;
-                                  }
-                                  if(_index == Data.list.length){
+                                  if(_index == Data.list.length-1){
                                     Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(totalIncorrect: _totalIncorrect)));
                                   }
                                   else {
+                                    _index++;
                                     Navigator.of(context).pop();
                                   }
 
