@@ -24,7 +24,11 @@ class _HomePageState extends State<HomePage> {
 
     var json = jsonDecode(response.body);
     if(json['status'] == 'ok'){
-     print('Connected Successful');
+      print(response.body);
+      print('Connected Successful');
+    }
+    else{
+      print('Connection Failed');
     }
   }
 
