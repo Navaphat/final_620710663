@@ -26,7 +26,9 @@ class _ListPageState extends State<ListPage> {
   int _totalIncorrect = 0;
   @override
   Widget build(BuildContext context) {
+
     var itemData = Data.list[_index];
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -34,10 +36,14 @@ class _ListPageState extends State<ListPage> {
           alignment: Alignment.center,
           child:
             Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Image.network(Data.list[_index].image_url),
+                AspectRatio(
+                    aspectRatio: 1.7,
+                  child: Image.network(itemData.image_url),
+                ),
+
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     for(int i = 0; i < itemData.choices.length; i++) _viewChoices(itemData, i),
                   ],
@@ -80,7 +86,9 @@ class _ListPageState extends State<ListPage> {
                           ElevatedButton(
                               onPressed: () {
                                 setState(() {
-                                  if(_index != Data.list.length) _index++;
+                                  if(_index >= 0 && _index <= 4){
+                                    _index++;
+                                  }
                                   if(_index == Data.list.length){
                                     Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(totalIncorrect: _totalIncorrect)));
                                   }
@@ -121,7 +129,10 @@ class _ListPageState extends State<ListPage> {
                 );
               }
             },
-            child: Text(itemData.choices[index]),
+            child: Padding(
+              padding: const EdgeInsets.all(25.0),
+              child: Text(itemData.choices[index], style: TextStyle(fontSize: 20.0),),
+            ),
           ),
         ),
       ),
