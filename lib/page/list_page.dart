@@ -35,19 +35,21 @@ class _ListPageState extends State<ListPage> {
         child: Container(
           alignment: Alignment.center,
           child:
-            Column(
-              children: [
-                AspectRatio(
-                    aspectRatio: 1.7,
-                  child: Image.network(itemData.image_url),
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    for(int i = 0; i < itemData.choices.length; i++) _viewChoices(itemData, i),
-                  ],
-                ),
-              ],
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  AspectRatio(
+                      aspectRatio: 1.7,
+                    child: Image.network(itemData.image_url),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      for(int i = 0; i < itemData.choices.length; i++) _viewChoices(itemData, i),
+                    ],
+                  ),
+                ],
+              ),
             ),
         ),
       ),
